@@ -1,6 +1,6 @@
 const express = require('express')
-const Batch = require('../models/batchModel')
-const {getAllBatches,addNewBatch}=require('../controllers/batchController')
+
+const {getAllBatches,addNewBatch, getRecordedSessionByBatchId}=require('../controllers/batchController')
 const router = express.Router()
 
 
@@ -9,6 +9,9 @@ router.get('/',getAllBatches)
 
 //add a new batch || POST
 router.post('/',addNewBatch)
+
+//get recordedsession of a particular batch
+router.get('/:batchId/recordedsessions',getRecordedSessionByBatchId)
 
 
 module.exports = router

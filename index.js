@@ -1,11 +1,23 @@
 require('dotenv').config()
 const express = require('express')
+const cookieParser = require('cookie-parser')
+const cors = require('cors')
+
 const mongoose = require('mongoose');
-const Batch=require('./models/batchModel')
+
 const batchRoutes=require('./routes/batchRoutes')
+const recordedSessionRoutes=require('./routes/recordedSessionRoutes')
+const userRoutes=require('./routes/userRoutes')
+
+
 const app = express()
 const port = 8080
 
+app.use(cors({
+  origin:['http://localhost:3000'],
+  credentials:true
+}))
+app.use(cookieParser())
 app.use(express.json()) //to get the body of any req comming
 
 app.get('/', (req, res) => {
@@ -13,7 +25,9 @@ app.get('/', (req, res) => {
 })
 
 //to use routes
-app.use('/batch',batchRoutes)
+app.use('/batches',batchRoutes)
+app.use('/recordedSessions',recordedSessionRoutes)
+app.use('/users',userRoutes)
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
